@@ -1,0 +1,44 @@
+{
+	"unit":
+		{
+		"HC.SHF":false,
+		"RB.SHF":10,
+		"JM.DCE":60,
+		"AP.CZC":10,
+		"TA.CZC":5,
+		"M.DCE":10,
+		"I.DCE":100,
+		"C.DCE":10,
+		"RM.CZC":10,
+		"AG.SHF":15,
+		"MA.CZC":10,
+		"Y.DCE":10,
+		"PP.DCE":5,
+		"P.DCE":10,
+		"CF.CZC":5,
+		"OI.CZC":10,
+		"BU.SHF":10,
+		"L.DCE":5,
+		"SR.CZC":10,
+		"J.DCE":100,
+		"AU.SHF":1000,
+		"RU.SHF":10,
+		"V.DCE":5,
+		"NI.SHF":1,
+		"AL.SHF":5,
+		"ZC.CZC":100,
+		"A.DCE":10,
+		"ZN.SHF":5,
+		"FG.CZC":20,
+		"CU.SHF":5,
+		"CS.DCE":10,
+		"JD.DCE":5,
+		"SM.CZC":5,
+		"SF.CZC":5
+		},
+	"tt":
+	{
+		"t1":false
+
+	}
+}
