@@ -11,7 +11,7 @@
     {
     "brokerID": "RohonReal",
     "mdAddress": "tcp://180.169.124.110:41213",
-    "tdAddress": "tcp://180.169.116.126:10001",
+    "tdAddress": "",
     "userID": "",
     "password": ""
     }
