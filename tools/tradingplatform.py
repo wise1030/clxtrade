@@ -129,6 +129,8 @@ class tradingplatform(object):
         if (not (self.m_ctpgw.isGatewayReady and self.isstrategy)) or self.traded:
             return
 
+        ##check rolling
+
         print "start to trade..."
         for key,va in self.redict.items():
 
