@@ -1,6 +1,5 @@
 # encoding: UTF-8
 
-
 from __future__ import absolute_import
 import json
 import os
@@ -10,7 +9,7 @@ import traceback
 from .chinese import text
 
 # 获取全局配置
-from python.trader.vtGlobal import globalSetting
+from vnpy.trader.vtGlobal import globalSetting
 
 # 打开配置文件，读取语言配置
 if globalSetting['language'] == 'english':

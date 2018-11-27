@@ -43,7 +43,7 @@ class tradingplatform(object):
             self.updateData[it] = False
         self.mainEvent = EventEngine2()
         self.mainEvent.start()
-        self.m_ctpgw = RhGateway(self.mainEvent,'RH','Real')
+        self.m_ctpgw = RhGateway(self.mainEvent,'RH','Test')
         self.mainEvent.register(EVENT_TICK,self.processquote)
         self.mainEvent.register(EVENT_POSITION,self.processpos)
         self.mainEvent.register(EVENT_TRADE,self.processtrade)

@@ -12,16 +12,14 @@ import os
 import json
 from copy import copy
 from datetime import datetime
-from vnpy.trader.ctp import MdApi, rhTdApi, defineDict
-from python.trader.ctp.ctp_data_type import defineDict
+from tradeapi.ctp_rh import MdApi, rhTdApi, defineDict
 
-from python.trader.vtGateway import *
-from python.trader.vtFunction import getJsonPath, getTempPath
-from python.trader.vtConstant import GATEWAYTYPE_FUTURES
-from python.trader.language import text
-from vtObject import *
+from vnpy.trader.vtGateway import *
+from vnpy.trader.vtFunction import getJsonPath, getTempPath
+from vnpy.trader.vtConstant import *
+from vnpy.trader.vtObject import *
 from time import sleep
-
+from .language import *
 # 以下为一些VT类型和RH类型的映射字典
 # 价格类型映射
 priceTypeMap = {}
@@ -112,8 +110,6 @@ class RhGateway(VtGateway):
             text.LOAD
             self.onLog(log)
             return
-        
-
         try:
             userID = str(setting[self.mode]['userID'])
             password = str(setting[self.mode]['password'])
@@ -187,7 +183,6 @@ class RhGateway(VtGateway):
             self.qryCount = 0           # 查询触发倒计时
             self.qryTrigger = 2         # 查询触发点
             self.qryNextFunction = 0    # 上次运行的查询函数索引
-            
             self.startQuery()
     
     #----------------------------------------------------------------------
@@ -478,7 +473,6 @@ class RhTdApi(rhTdApi):
     #----------------------------------------------------------------------
     def onFrontConnected(self):
         """服务器连接"""
-        print 'TDonFrontConnected'
         self.connectionStatus = True
     
         self.writeLog(text.TRADING_SERVER_CONNECTED)
@@ -621,7 +615,6 @@ class RhTdApi(rhTdApi):
     def onRspSettlementInfoConfirm(self, data, error, n, last):
         """确认结算信息回报"""
         self.writeLog(text.SETTLEMENT_INFO_CONFIRMED)
-        print "onRspSettlementInfoConfirm"
         # 查询合约代码
         self.reqID += 1
         self.reqQryInstrument({},self.reqID)
@@ -685,7 +678,6 @@ class RhTdApi(rhTdApi):
     def onRspQryInvestorPosition(self, data, error, n, last):
         """持仓查询回报"""
         if not data['InstrumentID']:
-            print 'onRspQryInvestorPosition'
             self.gateway.isGatewayReady = True
             return
 
@@ -727,7 +719,6 @@ class RhTdApi(rhTdApi):
         
         # 查询回报结束
         if last:
-            print 'onRspQryInvestorPosition'
             # 遍历推送
             for ix,pos in enumerate(self.posDict.values()):
                 if ix <len(self.posDict.values()) - 1:
@@ -830,7 +821,6 @@ class RhTdApi(rhTdApi):
         self.gateway.onContract(contract)
 
         if last:
-            print 'onRspQryInstrument'
             self.writeLog(text.CONTRACT_DATA_RECEIVED)
             sleep(1)
             self.qryPosition()
@@ -853,7 +843,6 @@ class RhTdApi(rhTdApi):
     #----------------------------------------------------------------------
     def onRspQryInvestorPositionDetail(self, data, error, n, last):
         """"""
-        print 'onRspQryInvestorPositionDetail'
         pass
         
     #----------------------------------------------------------------------
@@ -1466,28 +1455,3 @@ class RhTdApi(rhTdApi):
         log.gatewayName = self.gatewayName
         log.logContent = content
         self.gateway.onLog(log)        
-
-
-def test():
-    from PyQt4 import QtCore
-    import sys
-
-    def print_log(event):
-        log = event.dict_['data']
-        print ':'.join([log.logTime, log.logContent])
-
-    app = QtCore.QCoreApplication(sys.argv)
-
-    eventEngine = EventEngine()
-    eventEngine.register(EVENT_LOG, print_log)
-    eventEngine.start()
-
-    gateway = RhGateway(eventEngine,'RH','Real')
-    gateway.connect()
-    # gateway.sendOrder()
-
-    sys.exit(app.exec_())
-
-
-if __name__ == '__main__':
-    test()
